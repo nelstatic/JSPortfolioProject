@@ -17,6 +17,11 @@ a{
   color: #1d6154;
   border-radius: 60px;
   padding: 2px 17px;
+  cursor: pointer;
+}
+.filtre-item-active{
+  color: white;
+  background: #1d6154;
 }
 
 .container {
@@ -293,4 +298,7 @@ a{
   box-shadow: none !important;
   text-align: center;
   font-family: 'Syne';
+}
+.form-validation:hover{
+  background: #1D6154;
 }

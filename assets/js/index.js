@@ -32,6 +32,8 @@ async function displayWorks() {
   const works = await getWorks();
   const gallery = document.getElementById("gallery");
 
+  gallery.innerHTML = ""; //pour effacer le contenu de la gallery à chaque nouvel appel de la fonction
+
   for (const work of works) {
     const figElement = document.createElement("figure");
     const imgElement = document.createElement("img");
@@ -62,6 +64,13 @@ function filterWorks(event) {
       work.style.display = "none";
     }
   }
+
+  // le filtre sélectionné prend la classe qui change sa couleur en vert
+  const filtres = document.querySelectorAll(".filtre-item");
+  filtres.forEach((filtre) => {
+    filtre.classList.remove("filtre-item-active");
+  });
+  event.target.classList.add("filtre-item-active");
 }
 
 function isConnected() {
@@ -78,14 +87,29 @@ function handleAdminElements() {
   adminElements.forEach((element) => {
     element.classList.remove("hidden");
   });
+  const filtresElement = document.getElementById("filtres"); //disparition des filtres une fois connecté
+  filtresElement.classList.add("hidden");
 }
 
-/////////
+const loginButton = document.getElementById("login-button");
+const logoutButton = document.getElementById("logout-button");
+
+// déconnexion : suppression des infos de connexion du local storage
+logoutButton.addEventListener("click", function () {
+  localStorage.removeItem("user");
+  window.location.href = "index.html";
+});
 
 (async function main() {
   await displayCategories();
   await displayWorks();
   if (isConnected()) {
     handleAdminElements();
+    // gestion de l'affichage de login ou logout dans la barre de navigation
+    loginButton.style.display = "none";
+    logoutButton.style.display = "block";
+  } else {
+    loginButton.style.display = "block";
+    logoutButton.style.display = "none";
   }
 })(); //pour que la fonction s'auto appelle

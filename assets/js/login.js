@@ -23,6 +23,7 @@ submitButton.addEventListener("click", async function (e) {
   if (login.status == 200) {
     const loginRes = await login.json();
     localStorage.setItem("user", JSON.stringify(loginRes));
+
     window.location.href = "index.html";
   } else {
     const errorMsg = document.getElementById("error-msg");
